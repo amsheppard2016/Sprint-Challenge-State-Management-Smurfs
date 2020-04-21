@@ -2,9 +2,9 @@ import {
     FETCH_DATA,
     DATA_FETCH_SUCCESS,
     DATA_FETCH_ERROR,
-    // POST_DATA,
-    // DATA_POST_SUCCESS,
-    // DATA_POST_ERROR,
+    POST_DATA,
+    DATA_POST_SUCCESS,
+    DATA_POST_ERROR,
 } from "../actions";
 
 const initialState = {
@@ -29,23 +29,30 @@ export const smurfReducer = (state = initialState, action) => {
                 error: "",
             };
         case DATA_FETCH_ERROR:
+            console.log("datafetcherror:", action.payload);
             return {
                 ...state,
                 isLoading: false,
                 error: action.payload,
             };
-        // case POST_DATA:
-        //     return {
-        //         state,
-        //     };
-        // case DATA_POST_SUCCESS:
-        //     return {
-        //         state,
-        //     };
-        // case DATA_POST_ERROR:
-        //     return {
-        //         state,
-        //     };
+        case POST_DATA:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case DATA_POST_SUCCESS:
+            return {
+                ...state,
+                smurfs: [...state.smurfs],
+                isLoading: false,
+                error: "",
+            };
+        case DATA_POST_ERROR:
+            return {
+                ...state,
+                isLoading: false,
+                error: action.payload,
+            };
         default:
             return state;
     }
